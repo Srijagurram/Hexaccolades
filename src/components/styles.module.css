@@ -1,0 +1,42 @@
+.card{
+    background-color:'white';
+     border-color:'black';
+     width:500px;
+     height:auto;
+     border-radius:5px;
+     box-shadow:4px 4px 4px 4px rgba(0,0,0,0.2);
+     align-self: center;
+     align-content: center;
+ }
+ .dropdown{
+     width: 450px;
+     height: 50px;
+     border-radius: 10px;
+ }
+ .description{
+     width: 450px;
+     height: 50px;
+     border-width: 1px;
+     border-color: grey;
+     border-radius: 10px;
+ }
+ .fileUpload{
+    width: 450px;
+    height: 200px;
+    background-color: white;
+    border-radius: 10px;
+    border-color: gray;
+    border-width: 1px;
+ }
+ .button{
+    width:auto;
+    height:40px;
+    align-self:right;
+    display: inline-block; margin-right: 20px;
+    margin-right: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.buttonWrapper{
+    margin-left:300px
+}
