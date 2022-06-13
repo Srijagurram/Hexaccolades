@@ -37,6 +37,6 @@ export const SignInButton = () => {
     const { instance } = useMsal();
 
     return (
-        <Button variant="secondary" className="ml-auto" onClick={() => handleLogin(instance)} align='right'>Sign in</Button>
+        <Button variant="primary" className="ml-auto" onClick={() => handleLogin(instance)} align='right'>Sign in</Button>
     );
 }
