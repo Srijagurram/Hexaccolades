@@ -161,13 +161,14 @@ float: left;
   float: right;
   width:50px;
   height: 50px;
-  margin-left: 1100px;
+  margin-left: 1500px;
+  margin-right: 100px;
   object-fit: cover;
   object-position: center
 }
 
 .leaderBoard{
- margin-top: 50px;
+ margin-left: 50px;
 }
 hr.class1{
   height: 5px;

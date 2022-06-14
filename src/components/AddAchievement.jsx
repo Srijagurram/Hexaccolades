@@ -71,13 +71,13 @@ class AddAchievement extends Component{
         headers.append('Content-Type','application/json');
         headers.append('Accept','application/json');
      
-        //headers.append('Access-Control-Allow-Origin',url);
-        //headers.append('Access-Control-Allow-Credentials','true');
+        headers.append('Access-Control-Allow-Origin',url);
+        headers.append('Access-Control-Allow-Credentials','true');
      
         headers.append('POST','GET');
      
         fetch(url, {
-           headers:headers,
+           headers:{headers},
            method: 'POST',
            body: JSON.stringify(body)
         })

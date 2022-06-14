@@ -137,6 +137,14 @@ class Achievements extends React.Component {
       
     }
 
+  //   componentDidMount() {
+  //     // Simple GET request using fetch
+  //     fetch('https://localhost:44355/Achivement/'+this.state.achievements.user.usersId)
+  //         .then(response => response.json())
+  //         .then(data => this.setState({ achievements: data }));
+  //         console.log(this.state.achievements);
+  // }
+
     // items(){
     //   const url = "https://localhost:44355/Achievement";
 
