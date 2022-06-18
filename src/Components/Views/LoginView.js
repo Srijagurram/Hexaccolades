@@ -39,7 +39,7 @@ const LoginView = () => {
         <Row>
           <div className="space200 text-center">
             <Button style={buttonstyle} onClick={() => handleLogin(instance)}>
-              <label className="thin-white">Sign in with Hexgon</label>
+              <label className="thin-white">Sign in with Hexagon</label>
             </Button>
           </div>
         </Row>
