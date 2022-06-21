@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap";
-import React, { Component } from "react";
+import React, { Component,useState } from "react";
 import { PageLayout } from "./PageLayout";
 import {Link} from 'react-router-dom';
 import styles from './styles.module.css'
@@ -11,11 +11,12 @@ import LeaderBoard from "./LeaderBoard";
 import { Grid} from "@material-ui/core";
 import './Home.css'
 
-const Home =()=>{
+const Home =(props)=>{
     const navigate = useNavigate();
     const handleChange=()=>{
         navigate('/AddAchievement')
     }
+    const [user, setUser] = useState(props)
         return (
             <div>
                 {/* <SideBar/>  */}
@@ -23,7 +24,7 @@ const Home =()=>{
                 <div>
                     <Button onClick={handleChange} className={styles.achievementButton}><label>Add an Achievement</label></Button>
                 </div>
-                <Profile/>
+                <center><Profile/></center>
                 <LeaderBoard className={styles.leaderBoard}/>
                 <br/>
                 

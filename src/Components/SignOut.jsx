@@ -1,20 +1,21 @@
 import React from "react";
 import { useMsal } from "@azure/msal-react";
 import Button from "react-bootstrap/Button";
+import { authProvider } from "../authConfig";
 
-function handleLogout(instance) {
-    instance.logoutRedirect().catch(e => {
-        console.error(e);
-    });
-}
+// function handleLogout(instance) {
+//     instance.logoutRedirect().catch(e => {
+//         console.error(e);
+//     });
+// }
 
 /**
  * Renders a button which, when selected, will open a popup for logout
  */
 export const SignOutButton = () => {
-    const { instance } = useMsal();
+    //const { instance } = useMsal();
 
     return (
-        <Button variant="primary" className="ml-auto" onClick={() => handleLogout(instance)}>Sign out</Button>
+        <Button variant="primary" className="ml-auto" onClick={authProvider.logout}>Sign out</Button>
     );
 }

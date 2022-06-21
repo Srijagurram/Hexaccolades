@@ -14,13 +14,15 @@ import logo from "../assests/hexlogo.png"
 import { useNavigate } from "react-router-dom";
 //import  { Redirect } from 'react-router-dom'
 //import {Home} from "./Home";
+import { AzureAD, AuthenticationState } from "react-aad-msal";
+import { authProvider } from "../authConfig";
+import LoginView from "./Views/LoginView";
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImage, MDBBtn, MDBRipple } from 'mdb-react-ui-kit';
 
 /**
  * Renders the navbar component with a sign-in button if a user is not authenticated
  */
 export const PageLayout = (props) => {
-    const isAuthenticated = useIsAuthenticated();
-
     const navigate = useNavigate();
     const handleProfileClick=()=>{
         navigate('/Profile')
@@ -30,10 +32,14 @@ export const PageLayout = (props) => {
             <Navbar>
                 <img src={logo} className={styles.image}/><HexaccoladesBranding/>
                 {/* { isAuthlenticated ? <SignOutButton /> : <SignInButton /> } */}
-                <div>{isAuthenticated?<img src={profile} className={styles.profileImage} onClick={handleProfileClick}/>:<></>}</div>
+                <div>{authProvider.authenticationState===AuthenticationState.Authenticated?<div className={styles.status}>
+        <MDBCard style={{ width: '50px' }} className={styles.profileImage}>
+            <MDBCardImage src={profile} onClick={handleProfileClick} alt='...' position='left' />
+          </MDBCard>
+        </div>:<></>}</div>
             </Navbar>
             <hr className={styles.class1}/>
-            {isAuthenticated?<SideBar/>:<></>}
+            {authProvider.authenticationState===AuthenticationState.Authenticated?<SideBar/>:<></>}
             {/* <Link to="/AddAchievement"><button className={styles.button}>Add Achievement</button></Link> */}
             
             {/* <h5>{isAuthenticated?<Link to="/Home"></Link>:<></>}</h5> */}

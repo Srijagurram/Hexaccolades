@@ -4,13 +4,14 @@ import { Card } from "react-bootstrap";
 import styles from './styles.module.css'
 import profile from './profile.jpg'
 import medal from '../assests/medal.jpg'
+import { authProvider } from '../authConfig';
 
 class Profile extends Component {
     constructor(){
         super();
         this.state={
             id:'',
-            name:'Srija',
+            name:authProvider.getAccountInfo().account.name,
             designation:'Software Developer',
             claimed:'200',
             redeemed:'1000',
@@ -22,7 +23,7 @@ class Profile extends Component {
         // Simple GET request using fetch
         fetch('https://localhost:44355/User/'+this.state.id)
             .then(response => response.json())
-            .then(data => this.setState({ name: 'Srija' }));
+            .then(data => this.setState({ name: this.state.name }));
     }
 
     render(){
@@ -30,8 +31,6 @@ class Profile extends Component {
             <div className={styles.profile}>
                 <div className={styles.wrapper}>
                     <div><img src={profile} className={styles.image}/></div>
-                    <br/>
-                    <br/>
                     <div><img src={medal} className={styles.image}/></div>
                 </div>
                         <div>
@@ -48,17 +47,17 @@ class Profile extends Component {
                             <div className={styles.points}>
                                 {/* <label>Claimed Points</label>
                                 <label>{this.state.claimed}</label> */}
-                                Claimed Points<br/><span className={styles.item__score}><h1>{this.state.claimed}</h1></span>
+                                Claimed Points<span className={styles.item__score}><h1>{this.state.claimed}</h1></span>
                             </div>
                             <div className={styles.points}>
                                 {/* <label>Redeemed Points</label>
                                 <label>{this.state.redeemed}</label> */}
-                                Redeemed Points<br/><span className={styles.item__score}><h1>{this.state.redeemed}</h1></span>
+                                Redeemed Points<span className={styles.item__score}><h1>{this.state.redeemed}</h1></span>
                             </div>
                             <div className={styles.points}>
                                 {/* <label>Total Points</label>
                                 <label>{this.state.total}</label> */}
-                                Total Points<br/><span className={styles.item__score}><h1>{this.state.total}</h1></span>
+                                Total Points<span className={styles.item__score}><h1>{this.state.total}</h1></span>
                             </div>
                     </div> 
         )

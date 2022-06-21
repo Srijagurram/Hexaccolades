@@ -20,17 +20,40 @@ class AddAchievement extends Component{
 
   this.state = {
       description: '',
-      category:'',
+      categoryID:1,
       proof:'',
-      completedOn:'',
-      owner:1
+      completedOn:new Date(),
+      owner:1,
+      status:"Pending"
     };
 
     this.handleDescriptionChange=this.handleDescriptionChange.bind(this)
     this.handleCategoryChange=this.handleCategoryChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleFileChange = this.handleFileChange.bind(this)
   }
     
+  handleFileChange = (e)=>{
+    const files = Array.from(e.target.files)
+    console.log(files)
+    const formData = new FormData()
+
+    files.forEach((file, i) => {
+      formData.append(i, file)
+    })
+
+    console.log(formData)
+    fetch('https://localhost:44355/Achievement/upload', {
+     method: 'POST',
+     body: formData
+     })
+     .then(res => res.json())
+     .then(response => {
+       this.setState({ 
+         proof:response.dbPath
+       },console.log(this.state.proof))
+     })
+  }
   handleDescriptionChange = (e) => {
         this.setState({ description: e.target.value });
       };
@@ -42,13 +65,14 @@ class AddAchievement extends Component{
     };
 
       handleSubmit=(e)=>{
-        console.log(this.state)
+        //console.log(this.state)
          var body = {
-            userId:this.state.owner,
+            categoryID: 1,
+            userID:this.state.owner,
+            status:this.state.status,
             proof:this.state.proof,
-            description : this.state.description,
-            category: this.state.category,
             completedOn:this.state.completedOn,
+            description : this.state.description,
         }
     
         console.log(body);
@@ -71,13 +95,13 @@ class AddAchievement extends Component{
         headers.append('Content-Type','application/json');
         headers.append('Accept','application/json');
      
-        //headers.append('Access-Control-Allow-Origin',url);
-        //headers.append('Access-Control-Allow-Credentials','true');
+        // headers.append('Access-Control-Allow-Origin',url);
+        // headers.append('Access-Control-Allow-Credentials','true');
      
         headers.append('POST','GET');
      
         fetch(url, {
-           headers:headers,
+           headers:{headers},
            method: 'POST',
            body: JSON.stringify(body)
         })
@@ -103,6 +127,21 @@ class AddAchievement extends Component{
       handleCancel=(e)=>{
         window.history.back();
       };
+
+      uploadFile(file) {
+        fetch('https://localhost:44355/Achievement/upload', {
+          // content-type header should not be specified!
+          method: 'POST',
+          body: file,
+        })
+          .then(response => response.json())
+          .then(success => {
+            // Do something with the successful response
+            this.setState({proof:success})
+          })
+          .catch(error => console.log(error)
+        );
+      }
 
     render(){
       
@@ -196,12 +235,13 @@ class AddAchievement extends Component{
                 </div>
                 <label>Document</label>
                 <br/>
-                <UploadButton 
+                {/* <UploadButton 
                     uploader={uploader} 
                     options={{multi: false}} 
                     value={this.state.proof}
-                    onComplete={files => {console.log(files)}}>{({onClick}) =><button onClick={onClick} className={styles.fileUpload}>Upload supporting document...</button>}
-                </UploadButton>
+                    onComplete={files => {console.log(files)}}>{({onClick}) =><button onClick={this.uploadFile(value)} className={styles.fileUpload}>Upload supporting document...</button>}
+                </UploadButton> */}
+                <input type="file" className={styles.fileUpload} onChange={this.handleFileChange}/>
                 <br/>
                 <br/>
                 <div className={styles.buttonWrapper}>
