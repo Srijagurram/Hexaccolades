@@ -21,10 +21,12 @@ class AddAchievement extends Component{
   this.state = {
       description: '',
       categoryID:1,
+      category:'',
       proof:'',
       completedOn:new Date(),
       owner:1,
-      status:"Pending"
+      status:"Pending",
+      categories:[]
     };
 
     this.handleDescriptionChange=this.handleDescriptionChange.bind(this)
@@ -35,7 +37,6 @@ class AddAchievement extends Component{
     
   handleFileChange = (e)=>{
     const files = Array.from(e.target.files)
-    console.log(files)
     const formData = new FormData()
 
     files.forEach((file, i) => {
@@ -59,7 +60,7 @@ class AddAchievement extends Component{
       };
   handleCategoryChange=(e)=>{
     //console.log(e.target.value)
-        this.setState({ category: e.target.value },()=>{});
+        this.setState({categoryID: Number(e.target.value)})
         //sessionStorage.setItem("category",this.state.category);
         //console.log(this.state.category)
     };
@@ -67,7 +68,7 @@ class AddAchievement extends Component{
       handleSubmit=(e)=>{
         //console.log(this.state)
          var body = {
-            categoryID: 1,
+            categoryID: this.state.categoryID,
             userID:this.state.owner,
             status:this.state.status,
             proof:this.state.proof,
@@ -76,7 +77,7 @@ class AddAchievement extends Component{
         }
     
         console.log(body);
-            if(this.state.category==""){
+            if(this.state.categoryID==""){
               alert('Please select Type')
             }
         // else if(this.state.proof==""){
@@ -110,7 +111,7 @@ class AddAchievement extends Component{
         sessionStorage.setItem("owner",this.state.owner);
         sessionStorage.setItem("description",this.state.description);
         sessionStorage.setItem("proof",this.state.proof);
-        sessionStorage.setItem("category",this.state.category);
+        sessionStorage.setItem("categoryID",this.state.categoryID);
         sessionStorage.setItem("completedOn",this.state.completedOn);      
                           
      })
@@ -143,6 +144,25 @@ class AddAchievement extends Component{
         );
       }
 
+      renderCategories(){
+        const url = "https://localhost:44355/Category";
+
+         let headers = new Headers();
+         headers.append('Content-Type','application/json');
+        
+          fetch(url,{
+             headers:headers,
+             method: 'GET',
+             //body:JSON.stringify()
+             })
+             .then(response=>{return response.json()})
+             .then(res=>{this.setState({categories:res})             
+         })
+      }
+
+      componentDidMount(){
+        this.renderCategories();
+      }
     render(){
       
         const uploader = new Uploader({
@@ -150,62 +170,8 @@ class AddAchievement extends Component{
             apiKey: "free"
           });
 
-          const options=['Udemy Certification','External Certification','POCs/Next is NOW','New Ideas presented to CTO','AoC Top 25 people','Hexperts Blog as Author','Hexperts answer a query','Knowledge sharing session','Focus group','TechLock','Participating in conference as a speaker','Winning a hackathon','Participating in a hackathon']
-        // const options=[
-        //     {
-        //         label: 'Udemy Certification',
-        //         value: 1,
-        //      },
-        //      {
-        //        label: 'External Certification',
-        //         value: 2,
-          
-        //      },
-        //      {
-        //        label: 'POCs/Next is NOW',
-        //         value: 3,
-        //      },
-        //      {
-        //        label: 'New Ideas presented to CTO',
-        //         value: 4,
-        //      },
-        //      {
-        //        label: 'AoC Top 25 people',
-        //         value: 5,
-        //      },
-        //      {
-        //        label: 'Hexperts Blog as Author',
-        //         value: 6,
-        //      },
-        //      {
-        //        label: 'Hexperts answer a query',
-        //         value: 7,
-        //      },
-        //      {
-        //        label: 'Knowledge sharing session',
-        //         value: 8,
-        //      },
-        //      {
-        //        label: 'Focus group',
-        //         value: 9,
-        //      },
-        //      {
-        //        label: 'TechLock',
-        //         value: 10,
-        //      },
-        //      {
-        //        label: 'Participating in conference as a speaker',
-        //         value: 11,
-        //      },
-        //      {
-        //        label: 'Winning a hackathon',
-        //         value: 12,
-        //      },
-        //      {
-        //         label: 'Participating in a hackathon',
-        //         value: 13,
-        //      },
-        //   ];
+          const options = this.state.categories.map(category=>category)
+
         return (
           <div>
             {/* <SideBar/> */}
@@ -222,7 +188,7 @@ class AddAchievement extends Component{
                      value = {this.state.category}
                      placeholder="Select an option" /> */}
                      <select onChange={this.handleCategoryChange} className={styles.dropdown} >
-                        {options.map(arrayItem => <option value={arrayItem}>{arrayItem}</option>)}
+                        {options.map(arrayItem => <option value={arrayItem.id}>{arrayItem.name}</option>)}
                         </select>
                 </div>
                 <div>
