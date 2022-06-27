@@ -57,6 +57,9 @@ float: left;
      margin-bottom: 10px;
      margin-top: 5px;
  }
+ .date{
+  width:450px
+ }
  .description{
      width: 450px;
      height: 50px;
@@ -132,17 +135,25 @@ float: left;
     flex: 1;
     text-align: right;
   }
+
+  .item__rank{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size:large;
+    color:black;
+    padding-right: 5px;
+    }
   
   .item__avatar,
   .item__score {
     margin-left: 10px;
-    color:dodgerblue;
+    color: black;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
   }
   .item__name
   {
     margin-left: 10px;
-    color:cornflowerblue;
+    color:black;
   }
 
   .leaderboard{
@@ -162,18 +173,16 @@ float: left;
 
 .profileImage{
   float: right;
-  margin-left: 1100px;
-    border-radius: 50%;
-    overflow: hidden;
+  margin-left: 1500px;
 }
 
 .leaderBoard{
  margin-left: 50px;
 }
 hr.class1{
-  height: 10px;
+  height: 5px;
   background-color: black;
-  -webkit-filter: blur(1px);
+  -webkit-filter: blur(2px);
   border-radius: 10px;
 }
 .name{

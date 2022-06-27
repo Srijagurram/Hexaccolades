@@ -11,6 +11,7 @@ import { MultilineInput } from "react-input-multiline";
 //import Select from 'react-select';
 import Select from "react-dropdown-select";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TextField from '@material-ui/core/TextField';
 import SideBar from "./SideBar";
 //import swal from 'sweetalert'
 
@@ -24,7 +25,7 @@ class AddAchievement extends Component{
       category:'',
       proof:'',
       completedOn:new Date(),
-      owner:1,
+      userID:1,
       status:"Pending",
       categories:[]
     };
@@ -33,6 +34,7 @@ class AddAchievement extends Component{
     this.handleCategoryChange=this.handleCategoryChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleFileChange = this.handleFileChange.bind(this)
+    this.handleDateChanged = this.handleDateChanged.bind(this)
   }
     
   handleFileChange = (e)=>{
@@ -65,11 +67,14 @@ class AddAchievement extends Component{
         //console.log(this.state.category)
     };
 
-      handleSubmit=(e)=>{
+    handleDateChanged=(e)=>{
+      this.setState({completedOn:e.target.value})
+    }
+    handleSubmit=(e)=>{
         //console.log(this.state)
          var body = {
             categoryID: this.state.categoryID,
-            userID:this.state.owner,
+            userID:this.state.userID,
             status:this.state.status,
             proof:this.state.proof,
             completedOn:this.state.completedOn,
@@ -89,38 +94,17 @@ class AddAchievement extends Component{
         
         else{
         
-    
-      const url = "https://localhost:44355/Achievement";
-        let headers = new Headers();
-     
-        headers.append('Content-Type','application/json');
-        headers.append('Accept','application/json');
-     
-        // headers.append('Access-Control-Allow-Origin',url);
-        // headers.append('Access-Control-Allow-Credentials','true');
-     
-        headers.append('POST','GET');
-     
-        fetch(url, {
-           headers:{headers},
-           method: 'POST',
-           body: JSON.stringify(body)
-        })
-        .then(response => response.json())
-        .then(contents => {console.log(contents);
-        sessionStorage.setItem("owner",this.state.owner);
-        sessionStorage.setItem("description",this.state.description);
-        sessionStorage.setItem("proof",this.state.proof);
-        sessionStorage.setItem("categoryID",this.state.categoryID);
-        sessionStorage.setItem("completedOn",this.state.completedOn);      
-                          
-     })
-     .catch(()=> console.log("can't access " + url + " response. "))
-    
-    
-     alert('Achievement added successfully!');
-     //swal("Good job!",'Item uploaded',"success");
-     //window.history.go('./Home')
+          const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        };
+        fetch('https://localhost:44355/Achievement', requestOptions)
+            .then(response => response.json())
+            .then(data => console.log(data));
+          alert('Achievement added successfully!');
+          //swal("Good job!",'Item uploaded',"success");
+          //window.history.go('./Home')
      
       }
       };
@@ -199,6 +183,20 @@ class AddAchievement extends Component{
                             value={this.state.description}
                             className={styles.description}/>
                 </div>
+                {/* <div>
+                <label>Completed On</label><br/>
+                <TextField
+                    id="date"
+                    type="date"
+                    defaultValue=""
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    onChange={this.handleDateChanged}
+                    className={styles.date}
+                  />
+                </div>
+                <br/> */}
                 <label>Document</label>
                 <br/>
                 {/* <UploadButton 
