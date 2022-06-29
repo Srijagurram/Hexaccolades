@@ -3,8 +3,9 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import styles from './styles.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import pic from './profile.jpg'
+import pic from '../assests/neutral_profile.jpg'
 import SideBar from "./SideBar";
+import { MDBCard } from "mdb-react-ui-kit";
 
 
 
@@ -13,29 +14,46 @@ class LeaderBoard extends Component{
 render(){
     const list = [
         {
-            name: "Shawn Hanna",
-            score : 1550
+            name: "Sravan Kumar Chalvadi",
+            score : 3000
         },
         {
-            name: "Fidel Hand",
-            score : 2310
+            name: "Nagapurnika Mallem",
+            score : 3000
         },
         {
-            name: "Bessie Hickle",
-            score : 1350
+            name: "Renuka Sravya Tenneti",
+            score : 2000
         },
         {
-            name: "Adella Wunsch",
-            score : 2100
+            name: "Bhavani Dandu",
+            score : 1000
         },
         {
-            name: "Clair O'Connell",
-            score : 1250
+            name: "Sudeepa Gorle",
+            score : 1000
         },
         {
-            name: "Kameron Prosacco",
-            score : 5250
-        }
+            name: "Rishab Kulkarni",
+            score : 1000
+        },
+        {
+            name: "Viksit Agarwal",
+            score : 200
+        },
+        {
+            name: "Madineni Sharath K",
+            score : 200
+        },
+        {
+            name: "Manojkumar Kallagunta",
+            score : 200
+        },
+        {
+            name: "Sowmya Koppuravuri",
+            score : 200
+        },
+
     ]
 
     function Item(data){
@@ -44,12 +62,13 @@ render(){
                 {
                     data.map((value, index) => (
                         <li className={styles.item} key={index}>
+                        <span className={styles.item__rank}>{String(index+1).padStart(2, '0')}</span>
                          <div className={styles.item__avatar}>
                                 <img
                                     className={styles.item__avatar__img}
                                     src={pic}
                                 />
-                                </div>
+                            </div>
                                 <span className={styles.item__name}>{value.name}</span>
                                 <span className={styles.item__score}>{value.score}</span>
                                 </li>
@@ -62,12 +81,12 @@ render(){
         )
     }
     return ( 
-        <div className={styles.board}>
+        <MDBCard className={styles.board}>
         <h4 className={styles.leaderboard}>Leaderboard</h4>
                 <ul className={styles.item_wrapper}>
                         {Item(list)}
                 </ul>
-        </div>   
+        </MDBCard>   
         );
     }
 }

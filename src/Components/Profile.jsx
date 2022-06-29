@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
 import { Card } from "react-bootstrap";
 import styles from './styles.module.css'
-import profile from './profile.jpg'
+import profile from '../assests/neutral_profile.jpg'
 import medal from '../assests/medal.jpg'
 import { authProvider } from '../authConfig';
+import { MDBCard, MDBCardBody, MDBCardImage, MDBCardSubTitle, MDBCardTitle } from 'mdb-react-ui-kit';
 
 class Profile extends Component {
     constructor(){
@@ -12,7 +13,7 @@ class Profile extends Component {
         this.state={
             id:'',
             name:authProvider.getAccountInfo().account.name,
-            designation:'Software Developer',
+            designation:authProvider.getAccountInfo().account.userName,
             claimed:'200',
             redeemed:'1000',
             total:'1200',
@@ -21,30 +22,32 @@ class Profile extends Component {
     }
     componentDidMount() {
         // Simple GET request using fetch
-        fetch('https://localhost:44355/User/'+this.state.id)
-            .then(response => response.json())
-            .then(data => this.setState({ name: this.state.name }));
+        // fetch('https://localhost:44355/User/'+this.state.id)
+        //     .then(response => response.json())
+        //     .then(data => this.setState({ name: this.state.name }));
     }
 
     render(){
         return(
-            <div className={styles.profile}>
+            <MDBCard className={styles.profile}>
+                <MDBCardBody>
                 <div className={styles.wrapper}>
-                    <div><img src={profile} className={styles.image}/></div>
-                    <div><img src={medal} className={styles.image}/></div>
+                    <div><MDBCardImage src={profile} className={styles.image}/></div>
+                    <div><MDBCardImage src={medal} className={styles.image}/></div>
                 </div>
-                        <div>
+                <div>
                             {/* <label>Name</label>
                             <label>{this.state.name}</label> */}
-                            <label className={styles.name}>{this.state.name}</label>
-                            <br/>
+                            <MDBCardTitle className={styles.name}>{this.state.name}</MDBCardTitle>
+
                             {/* <label>Designation</label>
                             <label>{this.state.designation}</label> */}
-                            <span>{this.state.designation}</span>
-                        </div>
-                        <br/>
-                        <br/>
-                            <div className={styles.points}>
+                            <MDBCardSubTitle>{this.state.designation}</MDBCardSubTitle>
+                </div>
+                <br/>
+                <br/>
+                        <MDBCardBody>
+                        <div className={styles.points}>
                                 {/* <label>Claimed Points</label>
                                 <label>{this.state.claimed}</label> */}
                                 Claimed Points<span className={styles.item__score}><h1>{this.state.claimed}</h1></span>
@@ -59,7 +62,9 @@ class Profile extends Component {
                                 <label>{this.state.total}</label> */}
                                 Total Points<span className={styles.item__score}><h1>{this.state.total}</h1></span>
                             </div>
-                    </div> 
+                        </MDBCardBody>
+                </MDBCardBody>
+            </MDBCard> 
         )
     }
     
