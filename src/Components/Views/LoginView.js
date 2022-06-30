@@ -28,7 +28,7 @@ const LoginView = () => {
 
   //const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
-
+  
   return (
     <AzureAD provider={authProvider}>
   {
