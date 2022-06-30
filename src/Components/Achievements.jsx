@@ -11,6 +11,7 @@ import SideBar from "./SideBar";
 import pending from '../assests/pending_final.png'
 import approved from '../assests/approve_final.png'
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImage, MDBBtn, MDBRipple } from 'mdb-react-ui-kit';
+import { getToken } from "./GetToken";
 
 const admin = {
     width: '100%',
@@ -41,22 +42,22 @@ class Achievements extends React.Component {
       //  var body = {
       //   userID:1,
       //  }
-       let headers = new Headers();
-       headers.append('Content-Type','application/json');
+      //  let headers = new Headers();
+      //  headers.append('Content-Type','application/json');
       //  headers.append('Accept','application/json');
       //  headers.append('Access-Control-Allow-origin',url);
       //  headers.append('Access-Control-Allow-Credentials','true');
       //  headers.append('POST','GET');
       
         fetch(url,{
-           headers:headers,
+           headers:getToken.httpHeaders,
            method: 'GET',
            //body:JSON.stringify()
            })
            .then(response=>{return response.json()})
            .then(res=>{this.setState({achievements:res})
 
-           console.log(this.state.achievements)
+           //console.log(this.state.achievements)
            //sessionStorage.setItem("category",this.state.achievements.category)
            
        })

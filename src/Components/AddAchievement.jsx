@@ -13,6 +13,7 @@ import Select from "react-dropdown-select";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TextField from '@material-ui/core/TextField';
 import SideBar from "./SideBar";
+import { getToken } from "./GetToken";
 //import swal from 'sweetalert'
 
 class AddAchievement extends Component{
@@ -131,11 +132,12 @@ class AddAchievement extends Component{
       renderCategories(){
         const url = "https://localhost:44355/Category";
 
-         let headers = new Headers();
-         headers.append('Content-Type','application/json');
+        //  let headers = new Headers();
+        //  //headers.append('Content-Type','application/json');
+        //  headers= ;
         
           fetch(url,{
-             headers:headers,
+             headers:getToken.httpHeaders,
              method: 'GET',
              //body:JSON.stringify()
              })
